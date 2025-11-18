@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ToDo List</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
+    <script src='index.js'></script>
+</head>
+
+<body onload="executeOnLoad()">
+    <h1>ToDo List</h1>
+    <p><button id="btn-new">+</button></p>
+    <div>
+        <div class="entry-head" id="entry-head-0">
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td>DueDate</td>
+                    <td>Status</td>
+                </tr>
+            </table>
+        </div>
+        <div class="entry-form" id="entry-form-0">
+            <p><label>Title</label> <input type="text" placeholder="Enter Title"></p>
+            <p><label>Details</label> <textarea rows="4" columns="15" placeholder="Enter Details"></textarea></p>
+            <p><label>Due Date</label><input type="datetime-local"></p>
+            <p>
+                <label>Status</label>
+                <select>
+                    <option>Not started</option>
+                    <option>In progress</option>
+                    <option>Complete</option>
+                    <option>Cancelled</option>
+                </select>
+            </p>
+            <p><button class="btn-dsm" id="btn-dsm-0">Dismiss</button> <button class="btn-save" id="btn-save-0">Save
+                    changes</button></p>
+        </div>
+    </div>
+    <div>
+        <div class="entry-head" id="entry-head-1">
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td>DueDate</td>
+                    <td>Status</td>
+                </tr>
+            </table>
+        </div>
+        <div class="entry-form" id="entry-form-1">
+            <p><label>Title</label> <input type="text" placeholder="Enter Title"></p>
+            <p><label>Details</label> <textarea rows="4" columns="15" placeholder="Enter Details"></textarea></p>
+            <p><label>Due Date</label><input type="datetime-local"></p>
+            <p>
+                <label>Status</label>
+                <select>
+                    <option>Not started</option>
+                    <option>In progress</option>
+                    <option>Complete</option>
+                    <option>Cancelled</option>
+                </select>
+            </p>
+            <p><button class="btn-dsm" id="btn-dsm-1">Dismiss</button> <button class="btn-save" id="btn-save-1">Save
+                    changes</button></p>
+        </div>
+    </div>
+</body>
+
+</html>
