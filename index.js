@@ -1,4 +1,5 @@
 let myTasks;
+let eventMode = -1;
 
 function getData() {
     myTasks = JSON.parse(localStorage.getItem("myTasks")) || [{ title: "ab", details: "cd", due: "2025-11-19T13:33", status: "Complete" }];
@@ -7,10 +8,8 @@ function getData() {
 
 function renderTasks() {
     const tasksContainer = document.getElementById('contr-tasks');
-    console.log('*** DIAG *** tasksContainer', tasksContainer.innerHTML);
     tasksContainer.innerHTML = '';
     myTasks.forEach((task, index) => {
-        console.log('*** DIAG *** myTasks', index, task);
         tasksContainer.innerHTML += `
         <div class="entry-head" id="entry-head-${index}">
             <table>
@@ -21,7 +20,7 @@ function renderTasks() {
                 </tr>
             </table>
         </div>
-        <div class="entry-form" id="entry-form-${index}">
+        <div class="entry-form" style="display: none;" id="entry-form-${index}">
             <p>
                 <label>Title</label>
                 <input type="text" id="txt-title-${index}" value="${task.title}" placeholder="Enter Title">
@@ -83,11 +82,34 @@ function renderTasks() {
     */
 }
 
-function executeOnLoad() {
+function eventHandlerStd(argFunction, ...args) {
+    // console.log(`*** DIAG *** Setting up event handler ${argFunction} with args ${args}`, typeof args);
+    return () => argFunction(...args);
+    /*
+    onClickOnHead(index)); -> eventHandlerStd( onClickOnHead, index )
+    onOKCancelClick(index, false)); -> eventHandlerStd( onOKCancelClick, index, false )
+    onOKCancelClick(index, true)); -> eventHandlerStd( onOKCancelClick, index, true )
+    */
+}
+
+function setEventListeners() {
     const addNew = document.getElementById('btn-new');
     addNew.addEventListener('click', onNewClick);
+    for (let index = 0; index < myTasks.length; index++) {
+        const currTaskHead = document.getElementById(`entry-head-${index}`);
+        currTaskHead.addEventListener('click', () => onClickOnHead(index));
+        const currTaskBtnDsm = document.getElementById(`btn-dsm-${index}`);
+        currTaskBtnDsm.addEventListener('click', () => onOKCancelClick(index, false));
+        const currTaskBtnSave = document.getElementById(`btn-save-${index}`);
+        currTaskBtnSave.addEventListener('click', () => onOKCancelClick(index, true));
+    }
+}
+
+function executeOnLoad() {
     getData();
     renderTasks();
+    setEventListeners();
+    eventMode = -1;
     return;
 
     // This is wrong - we assume that the order in the collection is the same as the order of id.
@@ -110,11 +132,14 @@ function executeOnLoad() {
 }
 
 function onClickOnHead(headIndex) {
-    console.log(`*** DIAG *** Called at line ${headIndex}`);
-    const currHead = document.getElementById(`entry-head-${headIndex}`);
-    currHead.style.display = 'none';
-    const currForm = document.getElementById(`entry-form-${headIndex}`);
-    currForm.style.display = 'block';
+    if (eventMode === -1) {
+        console.log(`*** DIAG *** Called at line ${headIndex}`);
+        const currHead = document.getElementById(`entry-head-${headIndex}`);
+        currHead.style.display = 'none';
+        const currForm = document.getElementById(`entry-form-${headIndex}`);
+        currForm.style.display = 'block';
+        eventMode = headIndex;
+    }
 }
 
 function onOKCancelClick(headIndex, buttonOK) {
@@ -137,9 +162,12 @@ function onOKCancelClick(headIndex, buttonOK) {
     const currHead = document.getElementById(`entry-head-${headIndex}`);
     currHead.style.display = 'block';
     currForm.style.display = 'none';
+    eventMode = -1;
 }
 
 function onNewClick() {
-    console.log("*** INFO *** + clicked, adding New Task");
+    if (eventMode === -1) {
+        console.log("*** INFO *** + clicked, adding New Task");
+    }
 }
 
