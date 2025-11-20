@@ -6,23 +6,27 @@ function getData() {
 }
 
 
-function setEventListeners() {
+function setInitialEventListeners() {
     const addNew = document.getElementById('btn-new');
     addNew.addEventListener('click', onNewClick);
     for (let index = 0; index < myTasks.length; index++) {
-        const currTaskHead = document.getElementById(`entry-head-${index}`);
-        currTaskHead.addEventListener('click', () => onClickOnHead(index));
-        const currTaskBtnDsm = document.getElementById(`btn-dsm-${index}`);
-        currTaskBtnDsm.addEventListener('click', () => onOKCancelClick(index, false));
-        const currTaskBtnSave = document.getElementById(`btn-save-${index}`);
-        currTaskBtnSave.addEventListener('click', () => onOKCancelClick(index, true));
+        setEventListenersOnIndex(index);
     }
+}
+
+function setEventListenersOnIndex(taskIndex) {
+        const currTaskHead = document.getElementById(`entry-head-${taskIndex}`);
+        currTaskHead.addEventListener('click', () => onClickOnHead(taskIndex));
+        const currTaskBtnDsm = document.getElementById(`btn-dsm-${taskIndex}`);
+        currTaskBtnDsm.addEventListener('click', () => onOKCancelClick(taskIndex, false));
+        const currTaskBtnSave = document.getElementById(`btn-save-${taskIndex}`);
+        currTaskBtnSave.addEventListener('click', () => onOKCancelClick(taskIndex, true));
 }
 
 function executeOnLoad() {
     getData();
     renderTasks();
-    setEventListeners();
+    setInitialEventListeners();
     eventMode = -1;
 }
 
@@ -62,7 +66,11 @@ function onOKCancelClick(headIndex, buttonOK) {
 
 function onNewClick() {
     if (eventMode === -1) {
-        console.log("*** INFO *** + clicked, adding New Task");
+        newTaskIndex = myTasks.length;
+        console.log(`*** INFO *** + clicked, adding New Task index ${newTaskIndex}`);
+        myTasks.push({ title: "", details: "", due: "", status: "Not started" });
+        renderTasks();
+        setEventListenersOnIndex(newTaskIndex);
+        // format new Date() into 2025-11-19T13:33
     }
 }
-

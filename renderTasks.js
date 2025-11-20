@@ -1,8 +1,8 @@
 function renderTasks() {
     const tasksContainer = document.getElementById('contr-tasks');
-    tasksContainer.innerHTML = '';
+    let tasksHTML = '';
     myTasks.forEach((task, index) => {
-        tasksContainer.innerHTML += `
+        tasksHTML += `
         <div class="entry-head" id="entry-head-${index}">
             <table>
                 <tr>
@@ -40,4 +40,5 @@ function renderTasks() {
             </p>
         </div>`;
     });
+    tasksContainer.innerHTML = tasksHTML;
 }
