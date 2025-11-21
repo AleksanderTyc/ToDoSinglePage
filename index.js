@@ -11,16 +11,16 @@ function populateTasks() {
         document.getElementById(`td-title-${index}`).innerHTML = task.title;
         document.getElementById(`td-due-${index}`).innerHTML = task.due;
         document.getElementById(`td-status-${index}`).innerHTML = task.status;
-        // document.getElementById(`txt-title-${index}`).value = task.title;
-        // document.getElementById(`txt-dtls-${index}`).value = task.details;
-        // document.getElementById(`dt-due-${index}`).value = task.due;
-        // const optionsMap = {
-        //     ns: 'Not started', ip: 'In progress', cp: 'Complete', cn: 'Cancelled'
-        // };
-        // ['ns', 'ip', 'cp', 'cn'].forEach(taskStatus => {
-        //     console.log(`*** DIAG *** Setting status opt-${taskStatus}-${index}`, document.getElementById(`opt-${taskStatus}-${index}`) );
-        //     document.getElementById(`opt-${taskStatus}-${index}`).selected = (task.status === optionsMap[taskStatus]);
-        // });
+        document.getElementById(`txt-title-${index}`).value = task.title;
+        document.getElementById(`txt-dtls-${index}`).value = task.details;
+        document.getElementById(`dt-due-${index}`).value = task.due;
+        const optionsMap = {
+            ns: 'Not started', ip: 'In progress', cp: 'Complete', cn: 'Cancelled'
+        };
+        ['ns', 'ip', 'cp', 'cn'].forEach(taskStatus => {
+            console.log(`*** DIAG *** Setting status opt-${taskStatus}-${index}`, document.getElementById(`opt-${taskStatus}-${index}`) );
+            document.getElementById(`opt-${taskStatus}-${index}`).selected = (task.status === optionsMap[taskStatus]);
+        });
     });
     /*
     const tasksHTML = `

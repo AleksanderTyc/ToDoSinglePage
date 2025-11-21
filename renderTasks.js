@@ -1,5 +1,49 @@
 function renderSingleTask(taskIndex) {
-    console.log( `*** DIAG *** renderSingleTask, taskIndex ${taskIndex}`);
+    const divElem = document.createElement("div");
+    divElem.innerHTML = `
+        <div>
+            <div class="entry-head" id="entry-head-${taskIndex}">
+                <table>
+                    <tr>
+                        <td id="td-title-${taskIndex}"></td>
+                        <td id="td-due-${taskIndex}"></td>
+                        <td id="td-status-${taskIndex}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="entry-form" style="display: none;" id="entry-form-${taskIndex}">
+                <p>
+                    <label>Title</label>
+                    <input type="text" id="txt-title-${taskIndex}" placeholder="Enter Title">
+                </p>
+                <p>
+                    <label>Details</label>
+                    <textarea id="txt-dtls-${taskIndex}" rows="4" columns="15" placeholder="Enter Details"></textarea>
+                </p>
+                <p>
+                    <label>Due Date</label>
+                    <input type="datetime-local" id="dt-due-${taskIndex}">
+                </p>
+                <p>
+                    <label>Status</label>
+                    <select id="sel-status-${taskIndex}">
+                        <option id="opt-ns-${taskIndex}">Not started</option>
+                        <option id="opt-ip-${taskIndex}">In progress</option>
+                        <option id="opt-cp-${taskIndex}">Complete</option>
+                        <option id="opt-cn-${taskIndex}">Cancelled</option>
+                    </select>
+                </p>
+                <p>
+                    <button class="btn-dsm" id="btn-dsm-${taskIndex}">Dismiss</button>
+                    <button class="btn-save" id="btn-save-${taskIndex}">Save changes</button>
+                </p>
+            </div>
+        </div>`;
+    return divElem;
+}
+
+function renderSingleTask_obs(taskIndex) {
+    console.log(`*** DIAG *** renderSingleTask, taskIndex ${taskIndex}`);
     const tdTitle = document.createElement("td");
     tdTitle.id = `td-title-${taskIndex}`;
     const tdDue = document.createElement("td");
@@ -21,12 +65,12 @@ function renderSingleTask(taskIndex) {
     buttonDsmElem.id = `btn-dsm-${taskIndex}`;
     buttonDsmElem.classList.add('btn-dsm');
     buttonDsmElem.innerText = 'Dismiss';
-    
+
     const buttonSaveElem = document.createElement("button");
     buttonSaveElem.id = `btn-save-${taskIndex}`;
     buttonSaveElem.classList.add('btn-save');
     buttonSaveElem.innerText = 'Save changes';
-    
+
     const pButtonsElem = document.createElement("p");
     pButtonsElem.appendChild(buttonDsmElem);
     pButtonsElem.appendChild(buttonSaveElem);
@@ -87,5 +131,5 @@ function renderTasks() {
     // let tasksHTML = '';
     // myTasks.forEach((task, index) => { tasksHTML += renderSingleTask(index); });
     // tasksContainer.innerHTML = tasksHTML;
-    myTasks.forEach((task, index) => { tasksContainer.appendChild( renderSingleTask(index)) });
+    myTasks.forEach((task, index) => { tasksContainer.appendChild(renderSingleTask(index)) });
 }
